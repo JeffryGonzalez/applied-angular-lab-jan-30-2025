@@ -5,22 +5,32 @@ import {
   withComputed,
   withHooks,
   withMethods,
+  withProps,
+  withState,
 } from '@ngrx/signals';
 import { setEntities, withEntities } from '@ngrx/signals/entities';
-import { BookApiItem } from '../types';
-import { computed, inject } from '@angular/core';
+import { BookApiItem, BookSummaryItemModel } from '../types';
+import { computed, effect, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { map, pipe, switchMap, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { BookActions } from '@shared/state/books/actions';
-
+import { selectUserIsAdmin } from '@shared/state';
+type BookSortColumns = keyof Omit<BookSummaryItemModel, 'id'>;
+type BookState = {
+  sortingBy: BookSortColumns;
+};
 export const BookStore = signalStore(
   withEntities({ collection: '_server', entity: type<BookApiItem>() }),
+  withState<BookState>({
+    sortingBy: 'title',
+  }),
   withMethods((store) => {
     const http = inject(HttpClient);
     const reduxStore = inject(Store);
     return {
+      setSort: (sortingBy: BookSortColumns) => patchState(store, { sortingBy }),
       _load: rxMethod<void>(
         pipe(
           switchMap(() =>
@@ -43,9 +53,34 @@ export const BookStore = signalStore(
       ),
     };
   }),
+  withProps((store) => {
+    const reduxStore = inject(Store);
+    return {
+      userIsAdmin: reduxStore.selectSignal(selectUserIsAdmin),
+    };
+  }),
   withComputed((store) => {
     return {
-      books: computed(() => store._serverEntities()),
+      books: computed(() => {
+        const books = store._serverEntities();
+        const by = store.sortingBy();
+        switch (by) {
+          case 'author':
+          case 'title': {
+            return books.sort((a, b) => a[by].localeCompare(b[by]));
+          }
+          case 'year':
+            return books.sort((a, b) => {
+              if (a.year === b.year) {
+                return 0;
+              }
+              if (a.year > b.year) {
+                return 1;
+              }
+              return -1;
+            });
+        }
+      }),
     };
   }),
   withHooks({

@@ -6,15 +6,26 @@ import { BookStore } from '../services/book-store';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [],
   template: `
+    <p>Are you an admin? {{ store.userIsAdmin() }}</p>
     <div class="overflow-x-auto">
       <table class="table">
         <!-- head -->
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Year</th>
+            <th>Id</th>
+            <th>
+              <button class="link" (click)="store.setSort('title')">
+                Title
+              </button>
+            </th>
+            <th>
+              <button class="link" (click)="store.setSort('author')">
+                Author
+              </button>
+            </th>
+            <th>
+              <button class="link" (click)="store.setSort('year')">Year</button>
+            </th>
           </tr>
         </thead>
         <tbody>

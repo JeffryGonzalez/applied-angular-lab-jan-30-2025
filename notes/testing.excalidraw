@@ -1,0 +1,48 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://marketplace.visualstudio.com/items?itemName=pomdtr.excalidraw-editor",
+  "elements": [
+    {
+      "id": "tE2wn5yOwAMnvxV0JZIKh",
+      "type": "text",
+      "x": 387,
+      "y": 160,
+      "width": 949.0592651367188,
+      "height": 325,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": null,
+      "seed": 901257973,
+      "version": 437,
+      "versionNonce": 842699323,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1738270987196,
+      "link": null,
+      "locked": false,
+      "text": "Unit Tests\n    - if you have logic that you feel like you need to test that you can't cover with ST, SIT,\n      write unit tests for it.\n\nSystem Tests\n    - testing your app from the POV of the user (consumer) \n    - must be isolated from any other system.\n\nSystem Integration Tests (e2e)\n    - Do not run in a pipeline.\n    - these need to run in an environment (staging, testing)\n    - testing configuration and interactions with other services.\n",
+      "fontSize": 20,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 318,
+      "containerId": null,
+      "originalText": "Unit Tests\n    - if you have logic that you feel like you need to test that you can't cover with ST, SIT,\n      write unit tests for it.\n\nSystem Tests\n    - testing your app from the POV of the user (consumer) \n    - must be isolated from any other system.\n\nSystem Integration Tests (e2e)\n    - Do not run in a pipeline.\n    - these need to run in an environment (staging, testing)\n    - testing configuration and interactions with other services.\n",
+      "lineHeight": 1.25
+    }
+  ],
+  "appState": {
+    "gridSize": null,
+    "viewBackgroundColor": "#ffffff"
+  },
+  "files": {}
+}
