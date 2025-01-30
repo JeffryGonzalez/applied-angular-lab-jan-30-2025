@@ -5,6 +5,11 @@ import { HomeComponent } from './pages/home.component';
 
 export const routes: Routes = [
   {
+    path: 'books',
+    loadChildren: () =>
+      import('./books/books.routes').then((r) => r.BOOKS_ROUTES),
+  },
+  {
     path: 'resources',
     loadChildren: () =>
       import('./resources/resources.routes').then((r) => r.RESOURCE_ROUTES),

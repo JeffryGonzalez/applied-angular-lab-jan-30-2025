@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavigationComponent } from './components/navigation.component';
+import { Store } from '@ngrx/store';
+import { UserActions } from '@shared/state/user/actions';
 
 @Component({
   selector: 'app-root',
@@ -14,4 +16,9 @@ import { NavigationComponent } from './components/navigation.component';
   styles: [],
   imports: [NavigationComponent, RouterOutlet],
 })
-export class AppComponent {}
+export class AppComponent {
+  #reduxStore = inject(Store);
+  constructor() {
+    this.#reduxStore.dispatch(UserActions.loadTheUser());
+  }
+}

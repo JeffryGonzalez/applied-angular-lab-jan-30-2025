@@ -1,7 +1,10 @@
-import { Routes } from '@angular/router';
+import { CanActivateFn, Routes } from '@angular/router';
 import { ResourcesComponent } from './resources.component';
 import { ResourceListComponent } from './pages/resource-list.component';
 import { CreateComponent } from './pages/create.component';
+import { inject } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { selectUserIsAdmin } from '@shared/state';
 
 export const RESOURCE_ROUTES: Routes = [
   {
@@ -13,6 +16,7 @@ export const RESOURCE_ROUTES: Routes = [
         component: ResourceListComponent,
       },
       {
+        canActivate: [userIsAdminGuard()],
         path: 'create',
         component: CreateComponent,
       },
@@ -24,3 +28,10 @@ export const RESOURCE_ROUTES: Routes = [
     ],
   },
 ];
+
+function userIsAdminGuard(): CanActivateFn {
+  return () => {
+    const reduxStore = inject(Store);
+    return reduxStore.select(selectUserIsAdmin);
+  };
+}
